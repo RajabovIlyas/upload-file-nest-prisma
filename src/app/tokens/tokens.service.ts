@@ -20,7 +20,7 @@ export class TokensService {
   }
 
   updateById(id: string, data: Prisma.TokenUpdateInput) {
-    return this.tokens.update({ where: { id }, data });
+    return this.tokens.updateMany({ where: { id }, data });
   }
 
   delete(where: Prisma.TokenWhereUniqueInput) {

@@ -19,8 +19,8 @@ model File {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  password  String
+  id        String   @id
+  password  String   @db.Text
   Token     Token[]
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -28,7 +28,8 @@ model User {
 
 model Token {
   id           String   @id @default(uuid())
-  refreshToken String
+  refreshToken String   @db.Text
+  key          String   @unique
   user         User     @relation(fields: [userId], references: [id])
   userId       String
   updatedAt    DateTime @updatedAt

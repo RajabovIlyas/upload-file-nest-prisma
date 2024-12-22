@@ -1,0 +1,11 @@
+token:
+  refreshToken:
+    secret: 'refresh_token_secret'
+    expiresIn: '1d'
+  accessToken:
+    secret: 'access_token_secret'
+    expiresIn: '10m'
+encryption:
+  secret: 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3'
+  algorithm: 'aes-256-ctr'
+         
