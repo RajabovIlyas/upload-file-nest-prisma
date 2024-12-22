@@ -13,7 +13,7 @@ model File {
   name      String
   encoding  String
   mimetype  String
-  size      BigInt
+  size      Int
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }

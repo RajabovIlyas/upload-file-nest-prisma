@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
 import { PrismaService } from '../prisma/prisma.service';
+import { removeFile } from './helpers/remove-file.helper';
 
 @Injectable()
 export class FilesService {
@@ -21,6 +22,16 @@ export class FilesService {
 
   updateById(id: string, data: Prisma.FileUpdateInput) {
     return this.files.update({ where: { id }, data });
+  }
+
+  async updateAndDeleteOldFile(id: string, data: Prisma.FileUpdateInput) {
+    const file = await this.findOne({ id });
+    if (!file) {
+      throw new NotFoundException(`File with id ${id} not found!`);
+    }
+    removeFile(file.path);
+
+    return this.updateById(id, data);
   }
 
   deleteById(where: Prisma.FileWhereUniqueInput) {
